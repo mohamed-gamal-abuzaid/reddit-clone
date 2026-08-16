@@ -1,16 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Mail, User, Lock, Eye, EyeOff } from 'lucide-react';
+import { Mail, User, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { authService } from '@/lib/auth';
-import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const setAuth = useAuthStore((state) => state.setAuth);
 
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -25,16 +24,19 @@ export default function RegisterPage() {
     setError(null);
 
     try {
-      const response = await authService.register({
+      // 1. إرسال طلب إنشاء الحساب للـ API
+      await authService.register({
         email,
         username,
         password,
       });
 
-      setAuth(response);
+      // 2. التوجيه لصفحة التفعيل مع تمرير الإيميل في الـ URL
       router.push(`/auth/verify?email=${encodeURIComponent(email)}`);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'فشل إنشاء الحساب، يُرجى المحاولة مرة أخرى.');
+      setError(
+        err.response?.data?.message || 'فشل إنشاء الحساب، يُرجى المحاولة مرة أخرى.'
+      );
     } finally {
       setLoading(false);
     }
@@ -44,22 +46,19 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
       <div className="w-full max-w-4xl bg-white rounded-3xl border border-slate-200/80 shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
         
-        {/* Left Side - 3D Tech Image with Text Overlay */}
+        {/* Left Side - Banner Image with Text */}
         <div className="relative hidden md:flex flex-col justify-end p-8 w-full h-full min-h-[550px] overflow-hidden">
-          {/* Background Image */}
           <Image
             src="/auth-banner.jpg"
             alt="Authentication Security Illustration"
             fill
-            sizes="(max-width: 768px) 100vw, 50vw" // حل مشكلة تحذير Next.js
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
             priority
           />
 
-          {/* Dark Gradient Overlay for Text Readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent z-10"></div>
 
-          {/* Text Content Overlay */}
           <div className="relative z-20 text-white space-y-2">
             <h2 className="text-2xl lg:text-3xl font-extrabold tracking-tight drop-shadow-md">
               Join the conversation.
@@ -157,9 +156,15 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors shadow-sm disabled:opacity-50 mt-2"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors shadow-sm disabled:opacity-50 mt-2 flex items-center justify-center gap-2"
             >
-              {loading ? 'Creating account...' : 'Sign Up'}
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin" size={16} /> Creating account...
+                </>
+              ) : (
+                'Sign Up'
+              )}
             </button>
           </form>
 
