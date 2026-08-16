@@ -1,49 +1,68 @@
 'use client';
 
-import { Home, TrendingUp, Users, MessageSquare } from 'lucide-react';
-import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Home, Compass, Plus, MessageSquare, User } from 'lucide-react';
 
 export default function MobileBottomNav() {
-  const [activeTab, setActiveTab] = useState('Home');
-
-  const navItems = [
-    { id: 'Home', label: 'Home', icon: Home },
-    { id: 'Popular', label: 'Popular', icon: TrendingUp },
-    { id: 'Communities', label: 'Communities', icon: Users },
-    { id: 'Chat', label: 'Chat', icon: MessageSquare, badge: true },
-  ];
+  const pathname = usePathname();
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-2 flex justify-between items-center z-50 shadow-lg">
-      {navItems.map((item) => {
-        const Icon = item.icon;
-        const isActive = activeTab === item.id;
-        return (
-          <button
-            key={item.id}
-            onClick={() => setActiveTab(item.id)}
-            className="flex flex-col items-center gap-1 relative"
-          >
-            <div
-              className={`p-1.5 rounded-full transition ${
-                isActive ? 'bg-indigo-100 text-indigo-600' : 'text-slate-500'
-              }`}
-            >
-              <Icon size={20} />
-              {item.badge && (
-                <span className="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full border border-white" />
-              )}
-            </div>
-            <span
-              className={`text-[10px] font-medium ${
-                isActive ? 'text-indigo-600 font-bold' : 'text-slate-500'
-              }`}
-            >
-              {item.label}
-            </span>
-          </button>
-        );
-      })}
-    </div>
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-4 py-2 z-40 flex items-center justify-between">
+      
+      {/* Home Link */}
+      <Link
+        href="/"
+        className={`flex flex-col items-center gap-1 text-[10px] font-medium transition ${
+          pathname === '/' ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-800'
+        }`}
+      >
+        <Home size={20} />
+        <span>Home</span>
+      </Link>
+
+      {/* Explore Link */}
+      <Link
+        href="/explore"
+        className={`flex flex-col items-center gap-1 text-[10px] font-medium transition ${
+          pathname === '/explore' ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-800'
+        }`}
+      >
+        <Compass size={20} />
+        <span>Explore</span>
+      </Link>
+
+      {/* 🎯 Create Post Button (Center Action) */}
+      <Link
+        href="/create-post"
+        aria-label="Create Post"
+        className="w-10 h-10 bg-indigo-600 text-white rounded-xl shadow-md flex items-center justify-center -mt-3 hover:bg-indigo-700 transition"
+      >
+        <Plus size={22} />
+      </Link>
+
+      {/* Chat Link */}
+      <Link
+        href="/chat"
+        className={`flex flex-col items-center gap-1 text-[10px] font-medium transition ${
+          pathname === '/chat' ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-800'
+        }`}
+      >
+        <MessageSquare size={20} />
+        <span>Chat</span>
+      </Link>
+
+      {/* Profile Link */}
+      <Link
+        href="/profile"
+        className={`flex flex-col items-center gap-1 text-[10px] font-medium transition ${
+          pathname === '/profile' ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-800'
+        }`}
+      >
+        <User size={20} />
+        <span>Profile</span>
+      </Link>
+
+    </nav>
   );
 }

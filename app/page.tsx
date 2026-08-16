@@ -5,6 +5,7 @@ import FilterBar from '@/components/FilterBar';
 import PostCard from '@/components/PostCard';
 import MobileBottomNav from '@/components/MobileBottomNav';
 import { Plus } from 'lucide-react';
+import Link from 'next/link'; // 👈 1. استيراد Link
 
 export default function HomePage() {
   return (
@@ -45,14 +46,6 @@ export default function HomePage() {
             commentsCount={512}
           />
           <PostCard
-            votes="2.4k"
-            community="r/frontend"
-            time="3d ago"
-            title="The Evolution of Frontend Development: From jQuery to Modern Frameworks"
-            content="Frontend development has come a long way since the days of jQuery. In this article, we take a look at the evolution of frontend technologies and how modern frameworks like React, Vue, and Angular have changed the landscape."
-            commentsCount={378}
-          />
-          <PostCard
             votes="5.6k"
             community="r/webdev"
             time="1w ago"
@@ -70,16 +63,18 @@ export default function HomePage() {
             content="ECMAScript 2023 brings several exciting new features to JavaScript. In this post, we explore the most notable additions and how they can improve your code."
             commentsCount={642}
           />
-
-
         </main>
 
         <RightSidebar />
       </div>
 
-      <button className="md:hidden fixed bottom-20 right-4 w-12 h-12 bg-indigo-600 text-white rounded-2xl shadow-lg flex items-center justify-center z-40">
+      {/* 👈 2. استبدال زر الـ button بـ Link للتحويل لصفحة الإنشاء */}
+      <Link
+        href="/create-post" // أو '/create-post' حسب اسم المسار لديك
+        className="md:hidden fixed bottom-20 right-4 w-12 h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl shadow-lg flex items-center justify-center z-40 transition"
+      >
         <Plus size={24} />
-      </button>
+      </Link>
 
       <MobileBottomNav />
     </div>
