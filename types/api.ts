@@ -11,11 +11,21 @@ export interface RegisterRequest {
   password: string;
 }
 
+export interface RegisterResponse {
+  message?: string;
+
+}
+
 export interface AuthResponse {
   authenticationToken: string;
   username: string;
   refreshToken?: string;
   expiresAt?: string;
+}
+
+export interface VerifyEmailRequest {
+  email: string;
+  code: string;
 }
 
 // --- Post DTOs ---

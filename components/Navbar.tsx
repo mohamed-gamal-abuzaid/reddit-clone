@@ -1,52 +1,73 @@
 'use client';
 
-import { Search, Plus, MessageSquare, Bell } from 'lucide-react';
 import Link from 'next/link';
+import { Search, Bell, MessageSquare, Plus, User } from 'lucide-react';
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-slate-200/80 px-4 md:px-8 py-2.5 flex items-center justify-between">
-      {/* Logo */}
-      <Link href="/" className="text-xl font-black text-indigo-600 tracking-tight">
-        RedditClone
+    <header className="sticky top-0 z-50 bg-white border-b border-slate-200/80 px-4 lg:px-8 py-2.5 flex items-center justify-between gap-4">
+      
+      {/* Brand / Logo */}
+      <Link href="/" className="flex items-center gap-2 font-black text-indigo-600 text-lg tracking-tight shrink-0">
+        <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-xs font-black shadow-xs">
+          RC
+        </div>
+        <span className="hidden sm:inline">RedditClone</span>
       </Link>
 
-      {/* Desktop Search Bar */}
-      <div className="hidden md:flex flex-1 max-w-xl mx-8 relative">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
-        <input
-          type="text"
-          placeholder="Search RedditClone..."
-          className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100/80 hover:bg-slate-100 focus:bg-white rounded-full border border-transparent focus:border-indigo-500 focus:outline-none transition placeholder:text-slate-400 text-slate-800"
-        />
+      {/* Search Bar */}
+      <div className="flex-1 max-w-xl mx-2 sm:mx-4">
+        <div className="relative">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+          <input
+            type="text"
+            placeholder="Search RedditClone..."
+            className="w-full pl-10 pr-4 py-2 bg-slate-100/80 border border-transparent rounded-full text-xs sm:text-sm focus:outline-none focus:bg-white focus:border-indigo-600 transition text-slate-900 placeholder:text-slate-400"
+          />
+        </div>
       </div>
 
-      {/* Actions (Desktop & Mobile) */}
-      <div className="flex items-center gap-2 md:gap-3">
-        {/* Mobile Search Icon */}
-        <button className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-full">
-          <Search size={20} />
+      {/* User Actions */}
+      <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        {/* Notifications */}
+        <button
+          type="button"
+          aria-label="Notifications"
+          className="p-2 text-slate-600 hover:bg-slate-100 rounded-full transition"
+        >
+          <Bell size={20} />
         </button>
 
-        {/* Desktop Only Actions */}
-        <div className="hidden md:flex items-center gap-2">
-          <button className="p-1.5 hover:bg-slate-100 rounded-full text-slate-700 transition">
-            <Plus size={19} />
-          </button>
-          <button className="p-1.5 hover:bg-slate-100 rounded-full text-slate-700 transition">
-            <MessageSquare size={18} />
-          </button>
-          <button className="p-1.5 hover:bg-slate-100 rounded-full text-slate-700 transition relative">
-            <Bell size={18} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-indigo-600 rounded-full" />
-          </button>
-        </div>
+        {/* Chat / Messages */}
+        <button
+          type="button"
+          aria-label="Chat"
+          className="p-2 text-slate-600 hover:bg-slate-100 rounded-full transition hidden sm:flex"
+        >
+          <MessageSquare size={20} />
+        </button>
 
-        {/* User Avatar */}
-        <div className="w-8 h-8 rounded-full bg-slate-200 border border-slate-300 overflow-hidden flex items-center justify-center font-bold text-xs text-slate-600">
-          U
-        </div>
+        {/* 🎯 Create Post Link (Desktop & Tablet) */}
+        <Link
+          href="/create-post"
+          className="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3.5 py-1.5 rounded-full text-xs font-semibold transition"
+        >
+          <Plus size={18} />
+          <span className="hidden md:inline">Create</span>
+        </Link>
+
+        {/* Profile Avatar */}
+        <Link href="/profile">
+          <button
+            type="button"
+            aria-label="User Profile"
+            className="w-8 h-8 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-600 overflow-hidden ml-1"
+          >
+            <User size={18} />
+          </button>
+        </Link>
       </div>
+
     </header>
   );
 }
