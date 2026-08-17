@@ -57,13 +57,15 @@ export default function Navbar() {
         </Link>
 
         {/* Profile Avatar */}
-        <button
-          type="button"
-          aria-label="User Profile"
-          className="w-8 h-8 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-600 overflow-hidden ml-1"
-        >
-          <User size={18} />
-        </button>
+        <Link href="/profile">
+          <button
+            type="button"
+            aria-label="User Profile"
+            className="w-8 h-8 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-600 overflow-hidden ml-1"
+          >
+            <User size={18} />
+          </button>
+        </Link>
       </div>
 
     </header>

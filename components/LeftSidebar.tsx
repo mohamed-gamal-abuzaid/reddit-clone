@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, TrendingUp, Users, Settings, ShieldCheck, FileText, Plus } from 'lucide-react';
+import { Home, TrendingUp, Users, User, ShieldCheck, FileText, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,7 +11,7 @@ export default function LeftSidebar() {
     { label: 'Home', icon: Home, href: '/' },
     { label: 'Popular', icon: TrendingUp, href: '/popular' },
     { label: 'Communities', icon: Users, href: '/communities' },
-    { label: 'Settings', icon: Settings, href: '/settings' },
+    { label: 'Profile', icon: User, href: '/profile' },
   ];
 
   return (

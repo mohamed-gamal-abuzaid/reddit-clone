@@ -21,15 +21,15 @@ export default function MobileBottomNav() {
         <span>Home</span>
       </Link>
 
-      {/* Explore Link */}
+      {/* communities Link */}
       <Link
-        href="/explore"
+        href="/communities"
         className={`flex flex-col items-center gap-1 text-[10px] font-medium transition ${
-          pathname === '/explore' ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-800'
+          pathname === '/communities' ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-800'
         }`}
       >
         <Compass size={20} />
-        <span>Explore</span>
+        <span>communities</span>
       </Link>
 
       {/* 🎯 Create Post Button (Center Action) */}
